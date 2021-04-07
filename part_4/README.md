@@ -1,6 +1,5 @@
 # Part 4
 
-
 ## Exec inn i containeren
 i containeren selv så kjører webserveren på port 9000. 
 Vi kan jo sjekke dette. 
