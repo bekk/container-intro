@@ -19,4 +19,4 @@ Tadaa!
 Da har vi en dockerfile og vi kan kjøre en kommando i den. 
 
 
-Hva tror du skjer hvis vi bytter ut `CMD echo "Hello World"` med `CMD npm start`? Prøv det og gå så videre til del 3.
+Hva tror du skjer hvis vi bytter ut `CMD echo "Hello World"` med `CMD npm start`? Feiler det? Gå videre til del 3 for en forklaring!
