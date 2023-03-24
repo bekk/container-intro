@@ -1,5 +1,5 @@
 {
-  "name": "part_1",
+  "name": "del_1",
   "version": "1.0.0",
   "description": "Example Docker webserver",
   "main": "server.js",

@@ -1,22 +1,30 @@
-# Part 2
+# Del 2
 
 
-## Init Dockerfile
+## Init Dockerfile og bygg
 - Lag en ny fil som heter `Dockerfile`
-- Skriv `FROM node:15` på første linje. Dette betyr at vi bruker et offentlig image fra [docker hub](https://hub.docker.com/_/node) som utgangspunkt for vårt image.
-- Bygg et nytt docker image ved å kjøre kommandoen `docker build -t dockerintro .`. [-t](https://docs.docker.com/engine/reference/commandline/build/) gir imaget en tag (navn). `.` betyr: "Let etter en Dockerfile i denne mappa".
-- Sjekk om imaget ditt ligger der ved å kjøre kommandoen `docker image ls`.
+- Skriv `FROM node:19` på første linje. Dette betyr at vi bruker et offentlig image fra [docker hub](https://hub.docker.com/_/node) som "base image" for vårt image. Med andre ord tar vi et base-image som har litt grunnleggende ting vi trenger og så bygger vi videre på det.
+- Bygg et nytt docker image ved å kjøre kommandoen `docker build -t dockerintro .`. 
 
 
-## En kommando i Dockerfile
-Vi kan få imaget vårt til å gjøre litt forskjellige ting. Først kan vi se hva som skjer når vi kjører imaget som det er i dag. 
-Du kjører imaget ved å bruke kommandoen: `docker run dockerintro`.
-
-Neste steg er å se om vi kan få den til å gjøre noe mer. 
-Prøv å legge inn linjen `CMD echo "Hello World"` i `Dockerfile`. Bygg deretter imaget på nytt og kjør det (`docker build -t dockerintro . && docker run dockerintro` er en nyttig kommando :) ).
-
-Tadaa! 
-Da har vi en dockerfile og vi kan kjøre en kommando i den. 
+Her gir [-t](https://docs.docker.com/engine/reference/commandline/build/) gir imaget en tag (navn). `.` betyr: "Let etter en Dockerfile i denne mappa".
+- Sjekk om imaget ditt bygde ved å kjøre kommandoen `docker image ls`.
 
 
-Hva tror du skjer hvis vi bytter ut `CMD echo "Hello World"` med `CMD npm start`? Feiler det? Gå videre til del 3 for en forklaring!
+## Kjør containeren vår
+Akkurat nå er imaget vårt helt tomt. La oss lage en kjørende instans av imaget vårt, kalt en container og få det til å gjøre litt forskjellige ting. 
+
+Først kan vi se hva som skjer når vi kjører imaget med kun den først `FROM`-linja. Hva tror du kommer til å skje?
+
+Kjør imaget ved å bruke kommandoen: `docker run dockerintro`.
+
+
+## Får vi den til å gjøre noe mer fornuftig?
+La oss få imaget til å gjøre et eller annet.
+Prøv å legge inn linjen `CMD echo "Hello World"` i `Dockerfile`. Bygg deretter imaget på nytt og kjør det. Hva forventer du at skjer? (`docker build -t dockerintro . && docker run dockerintro` er en nyttig kommando :) ).
+
+## Kjøre tjenesten?
+
+Hva tror du skjer hvis vi bytter ut `CMD echo "Hello World"` med `CMD npm start`? Feiler det 🔴? Hvorfor det?
+
+Gå videre til del 3 for en forklaring! 🏃‍♂️

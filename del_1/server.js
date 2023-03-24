@@ -9,7 +9,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health', (req, res) => {
-  res.send('MyWonderfulService is healthy');
+  res.send('MyWonderfulService is healthy\nRunning on Node' + process.version);
 });
 
 app.get('/random', (req, res) => {
