@@ -1,12 +1,14 @@
-# Part 5
+# Del 5
 
 ## Image størrelse
 Hvor stort er imaget ditt? Hvis du har glemt kommandoen for å liste images, se i del 2. 
-Dette er jo veldig stort er det ikke? 
+Dette er jo ganske stort er det ikke? Med tanke på hvor mye kode vi kjører?
 
 For å redusere image-størrelsen er det flere ting man kan gjøre. De to viktigste er: 
-- Ikke kopier over unødvendige ting. Vi har løst dette med å ha ha to spesifikke `COPY`-kommandoer. Hvis vi hadde brukt `COPY . .` hadde vi kopiert alt fra cwd-en (current working directory) over. Veldig praktisk, men hvis du har masse bilder og greier i mappa er jo dette ikke vits. 
-- Bruk et slimmere image. node:15 er ganske stort og har masse greier i seg. Gå tilbake til [docker hub](https://hub.docker.com/_/node) og se om du finner et annet image du kan bruke. Bygg deretter og se hvor stort det blir. 
+- Ikke kopier over unødvendige ting. Vi har løst dette med å ha ha to spesifikke `COPY`-kommandoer. Hvis vi hadde brukt `COPY . .` hadde vi kopiert alt fra cwd-en (current working directory) over. 
+Veldig praktisk, men hvis du har masse bilder og greier i mappa er jo dette ikke vits. 
+- Bruk et mindre base-image. node:19 er ganske stort og har masse greier i seg. Gå tilbake til [docker hub](https://hub.docker.com/_/node) og se om du finner et annet image du kan bruke(hint: alpine er en linux-distro som er kjent for å være liten og grei å bruke).
+Bygg deretter og se hvor stort det blir. 
 
 
 ## Layers
@@ -39,7 +41,7 @@ La oss se litt på layers.
 - La oss nå gjøre en liten endring i `server.js`. Jeg la inn `// min kommentar` på en av de blanke linjene selv. Hva skjedde nå? Hvilke layers ble bygd på nytt? Hvorfor det?
 - La oss prøve noe. Bytt rekkefølge på ting i Dockerfile så vi i stedet har:
 ```
-FROM node:15-slim
+FROM node:19-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install
@@ -50,4 +52,4 @@ Hva er forskjellen?
 
 - Prøv nå å kjøre bygget to ganger, så vi får opp CACHED igjen. 
 - Gjør nå en ny mini-endring i `server.js` og gjør et nytt bygg. Ble de samme lagene bygd på nytt eller er det en forskjell? 
-- Hva har dette å si?
+- Noter deg et punkt eller to om hva dette kan være nyttig for, så tar vi det opp etterpå.

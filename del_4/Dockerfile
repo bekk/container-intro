@@ -1,6 +1,6 @@
-FROM node:15
+FROM node:19
 WORKDIR /usr/src/app
 COPY package*.json ./
-COPY server.js .
+COPY ./server.js .
 RUN npm install
 CMD npm start
