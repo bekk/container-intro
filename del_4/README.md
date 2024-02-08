@@ -13,4 +13,4 @@ Her executer vi applikasjonen bash i containeren vår med interactive mode som g
 
 ## Port forward
 Docker har funksjonalitet for å nettopp mappe porter fra en container til host-maskinen. 
-Prøv å starte containeren din med `docker run -ti -p 9000:9000 dockerintro`. Hva skjer nå hvis du går til http://0.0.0.0:9000 på din maskin?
+Prøv å starte containeren din med `docker run -it -p 9000:9000 dockerintro`. Hva skjer nå hvis du går til http://0.0.0.0:9000 på din maskin?
