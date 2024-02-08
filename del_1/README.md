@@ -11,3 +11,4 @@ Føst av alt må vi sørge for at vi har de avhengighetene vi trenger.
 ## Se på hva vi har å jobbe med.
 - Kjør `npm install` i terminalen
 - Ta en titt på `server.js` for å se vår flotte tjeneste. Test alle tre endepunktene ved å kjøre `node server.js`. Hva forventer du at de returnerer?
+
