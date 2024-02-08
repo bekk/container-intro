@@ -39,7 +39,7 @@ Se om du kan få nettsiden opp og kjøre!
 Tre tips på veien 💡:
 
 - Legg `nginx.conf` i `/etc/nginx`.
-- Nginx starter litt rart. Du kan bruke kommandoen `nginx -g daemon off;` for å starte nginx i imaget.
+- Nginx starter litt rart. Du kan bruke kommandoen `CMD ["nginx", "-g", "daemon off;"]` for å starte nginx i imaget.
 - Hvilken port eksponeres her? I forrige oppgave satte vi eksplisitt port 9000. Standardporten til nginx er port 80. Når du brukte `-p 9000:9000` tidligere betyr det egentlig at du
   kobler port 9000 på maskinen din til port 9000 i containeren.
 
