@@ -41,7 +41,7 @@ La oss se litt på layers.
 - La oss nå gjøre en liten endring i `server.js`. Jeg la inn `// min kommentar` på en av de blanke linjene selv. Hva skjedde nå? Hvilke layers ble bygd på nytt? Hvorfor det?
 - La oss prøve noe. Bytt rekkefølge på ting i Dockerfile så vi i stedet har:
 ```
-FROM node:19-alpine
+FROM node:20-alpine
 WORKDIR /usr/src/app
 COPY package*.json ./
 RUN npm install

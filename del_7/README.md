@@ -2,13 +2,19 @@
 
 ## Ut i skyen
 La oss kjøre ting i skyen. Dagens cloud of choice er AWS.
-Logg inn på 
+Logg inn på
 
 - https://bekk-skyskolen.signin.aws.amazon.com/console. Evt. velg IAM user når du logger inn i AWS consolet og skriv `bekk-skyskolen` i Account ID-feltet.
 - Brukernavn: eposten din.
 - Passord: Spør Halvor
 
 I dag skal vi såkalt "clickopse" oss gjennom en del ting. Jeg vil bare nevne at dette ofte er fyfy på prosjekt, men vi gir oss selv lov til det i dag.
+
+### Sette opp cli
+Gå inn hit for å lage en access key og access secret. Velg "other" i dropdown-menyen https://us-east-1.console.aws.amazon.com/iam/home#/security_credentials/access-key-wizard.
+
+
+I CLIen din skriv `aws configure` og fyll inn. Velg region `eu-west-1` og output velger du selv (blankt er fint.).
 
 ### Laste opp imaget vårt til et private repository.
 
