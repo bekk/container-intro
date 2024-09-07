@@ -6,8 +6,15 @@
   "scripts": {
     "start": " node server.js"
   },
-  "author": "Halvor Mangseth",
+  "contributors": [
+    {
+      "name": "Halvor Mangseth"
+    },
+    {
+      "name": "Ole Anders stokker"
+    }
+  ],
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.19.2"
   }
 }
