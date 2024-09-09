@@ -2,41 +2,54 @@
 
 ## Ut i skyen
 
-La oss kjøre ting i skyen. Dagens cloud of choice er AWS.
-Logg inn på
+La oss kjøre ting i skyen. Dagens cloud of choice er Microsoft Azure!
 
-- https://bekk-skyskolen.signin.aws.amazon.com/console. Evt. velg IAM user når du logger inn i AWS consolet og skriv `bekk-skyskolen` i Account ID-feltet.
-- Brukernavn: eposten din.
-- Passord: Spør Halvor
+Logg inn på https://portal.azure.com med Bekk-brukeren din.
 
-I dag skal vi såkalt "clickopse" oss gjennom en del ting. Jeg vil bare nevne at dette ofte er fyfy på prosjekt, men vi gir oss selv lov til det i dag.
+I dag skal vi klikke oss gjennom oppsettet, dette blir populært kalt for "clickops". Jeg vil bare nevne at dette ofte er _fyfy_ ute på oppdrag, men vi gir oss selv lov til det i dag for å lære hvordan ting henger sammen i skyen.
 
-### Sette opp cli
+### Lag din egen gruppe i Azure
 
-Gå inn hit for å lage en access key og access secret. Velg "other" i dropdown-menyen https://us-east-1.console.aws.amazon.com/iam/home#/security_credentials/access-key-wizard.
+For å gruppere ressurser i Azure må alle ting opprettes i en "Resource Group".
+Lag din egen Resource Group ved å klikke i Azure portalen, navngi den etter deg selv.
+Jeg ville kalt min typ. `oppdrift-ole-anders`.
 
-I CLIen din skriv `aws configure` og fyll inn. Velg region `eu-west-1` og output velger du selv (blankt er fint.).
+Velg at gruppen skal ligge i **North Europe**.
 
-### Laste opp imaget vårt til et private repository.
+### Klargjør et container registry for tjenesten din
 
-**NB! Husk på å være i riktig region**
+For å kunne laste opp et Docker image til Azure må vi først ha et "Container Registry" å laste det opp til.
+Opprett et Container Registry i Azure portalen, husk å legge det til din egen Resource Group og riktig location.
 
-Først skal vi bygge og laste opp imaget vårt. Gå til `Amazon Elastic Container Registry` og lag et nytt private repository. Gi det et navn med ditt eget navn så du finner det igjen.
-Trykk deg inn på repoet ditt og velg `View push commands`. Følg disse.
+Navnet på registryet må være globalt unikt, da det blir del av en URL. Jeg kaller mitt for `oppdriftoleanders`, ettersom navnet ikke kan ikkeholde bindestreker.
 
-### App runner
+Velg "Basic" som pricing plan, slik at lommaboken min ikke blør mer enn den trenger.
 
-Neste er å kjøre ting!
-Gå til `AWS App Runner` og velg `Create service`. Velg imaget du lagde i forrige steg. Set deployment settings til automatic. For Service Role velger du Use existing role og den
-som heter.`AppRunnerECRAccessRole`. Next.
+### Sette opp cli slik at Docker kan snakke med Azure
 
-Deretter, sett virtual cpu og minne til det laveste, tenk på port og et navn som er unikt for deg. Se over og og lag tjenesten din. Sjekk at URLen fungerer.
+Kjør kommandoen i en terminal:
 
-Tøft da!
+```bash
+az login
+```
 
-### Kulere addresse.
+Dette vil autentisere akkurat dette terminalvinduet til å snakke med Azure.
 
-Denne AWS-kontoen eier domenet bekk.cloud. Vi kan jo prøve å få en noe kulere URL til sakene våre.
+Log inn i registryet med Azure CLI:
 
-Gå til `Custom Domains` og sett opp et nytt domene velg noe med `bekk.cloud`, f.eks. `halvor-containerintro.bekk.cloud`. Gå deretter til Route53, `Hosted zones`, `bekk.cloud`.
-Velg create records og legg inn det du du fikk fra apprunner som CNAME records. Deretter venter vi på at det valideres (følg med i App Runner).
+```bash
+az acr login --name <navnet på ditt registry>
+```
+
+### Laste opp imaget vårt til et container registry.
+
+For å laste opp et image til et registry må vi først tagge imaget med et navn som tilhører det.
+Alle images i et registry har en unik URL, denne URL-en er også navnet på imaget.
+
+Adressen til mitt registry er `oppdriftoleanders.azurecr.io`, navnet på imaget mitt lkan være `containerintro`, og tag-en kan være `latest`. Dermed kan navnet på et image jeg vil laste opp kan da være f.eks `oppdriftoleanders.azurecr.io/containerintro:latest`.
+
+Bruk `docker tag ...` til å gi imaget ditt et nytt navn. Du kan bruke `docker image ls` til å se om det virket, du burde da ha to images med forskjellige navn og samme `Image ID`.
+
+Last opp imaget til Azure med `docker push ...`.
+
+Sjekk Azure portalen for å se om du finner imaget ditt!
