@@ -1,3 +1,3 @@
 # container-intro
 
-Start i `part_1`.
+Start i `del_1`.
