@@ -1,30 +1,55 @@
-# Del 2
+# Del 7
 
-## Init Dockerfile og bygg
+## Ut i skyen
 
-- Lag en ny fil som heter `Dockerfile`
-- Skriv `FROM node:20` på første linje. Dette betyr at vi bruker et offentlig image fra [Docker Hub](https://hub.docker.com/_/node) som "base image" for vårt image. Med andre ord tar vi et base-image som har litt grunnleggende ting vi trenger og så bygger vi videre på det.
-- Bygg et nytt docker image ved å kjøre kommandoen `docker build -t dockerintro .`.
+La oss kjøre ting i skyen. Dagens cloud of choice er Microsoft Azure!
 
-Her gir [-t](https://docs.docker.com/engine/reference/commandline/build/) gir imaget en tag (navn). `.` betyr: "Let etter en Dockerfile i denne mappa".
+Logg inn på https://portal.azure.com med Bekk-brukeren din.
 
-- Sjekk om imaget ditt bygde ved å kjøre kommandoen `docker image ls`.
+I dag skal vi klikke oss gjennom oppsettet, dette blir populært kalt for "clickops". Jeg vil bare nevne at dette ofte er _fyfy_ ute på oppdrag, men vi gir oss selv lov til det i dag for å lære hvordan ting henger sammen i skyen.
 
-## Kjør containeren vår
+### Lag din egen gruppe i Azure
 
-Akkurat nå er imaget vårt helt tomt. La oss lage en kjørende instans av imaget vårt, kalt en container og få det til å gjøre litt forskjellige ting.
+For å gruppere ressurser i Azure må alle ting opprettes i en "Resource Group".
+Lag din egen Resource Group ved å klikke i Azure portalen, navngi den etter deg selv.
+Jeg ville kalt min typ. `oppdrift-ole-anders`.
 
-Først kan vi se hva som skjer når vi kjører imaget med kun den først `FROM`-linja. Hva tror du kommer til å skje?
+Velg at gruppen skal ligge i **North Europe**.
 
-Kjør imaget ved å bruke kommandoen: `docker run dockerintro`.
+### Klargjør et container registry for tjenesten din
 
-## Får vi den til å gjøre noe mer fornuftig?
+For å kunne laste opp et Docker image til Azure må vi først ha et "Container Registry" å laste det opp til.
+Opprett et Container Registry i Azure portalen, husk å legge det til din egen Resource Group og riktig location.
 
-La oss få imaget til å gjøre et eller annet.
-Prøv å legge inn linjen `CMD echo "Hello World"` i `Dockerfile`. Bygg deretter imaget på nytt og kjør det. Hva forventer du at skjer? (`docker build -t dockerintro . && docker run dockerintro` er en nyttig kommando :) ).
+Navnet på registryet må være globalt unikt, da det blir del av en URL. Jeg kaller mitt for `oppdriftoleanders`, ettersom navnet ikke kan ikkeholde bindestreker.
 
-## Kjøre tjenesten?
+Velg "Basic" som pricing plan, slik at lommaboken min ikke blør mer enn den trenger.
 
-Hva tror du skjer hvis vi bytter ut `CMD echo "Hello World"` med `CMD npm start`? Feiler det 🔴? Hvorfor det?
+### Sette opp cli slik at Docker kan snakke med Azure
 
-Gå videre til del 3 for en forklaring! 🏃‍♂️
+Kjør kommandoen i en terminal:
+
+```bash
+az login
+```
+
+Dette vil autentisere akkurat dette terminalvinduet til å snakke med Azure.
+
+Log inn i registryet med Azure CLI:
+
+```bash
+az acr login --name <navnet på ditt registry>
+```
+
+### Laste opp imaget vårt til et container registry.
+
+For å laste opp et image til et registry må vi først tagge imaget med et navn som tilhører det.
+Alle images i et registry har en unik URL, denne URL-en er også navnet på imaget.
+
+Adressen til mitt registry er `oppdriftoleanders.azurecr.io`, navnet på imaget mitt lkan være `containerintro`, og tag-en kan være `latest`. Dermed kan navnet på et image jeg vil laste opp kan da være f.eks `oppdriftoleanders.azurecr.io/containerintro:latest`.
+
+Bruk `docker tag ...` til å gi imaget ditt et nytt navn. Du kan bruke `docker image ls` til å se om det virket, du burde da ha to images med forskjellige navn og samme `Image ID`.
+
+Last opp imaget til Azure med `docker push ...`.
+
+Sjekk Azure portalen for å se om du finner imaget ditt!

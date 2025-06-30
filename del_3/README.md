@@ -1,32 +1,36 @@
-# Del 3
+# Del 8
 
-## Lokale filer til imaget
+## Run it!
 
-Når du forsøkte å kjøre med `npm start` fikk du sannsynsligvis en feilmelding med en tekst i duren `enoent ENOENT: no such file or directory, open '//package.json'`.
-Dette er fordi det ikke ligger noen filer i imaget. server.js og package.json ligger lokalt på din maskin. Vi må derfor overføre de filene til imaget.
+Nå har vi nesten alle puslebrikkene på plass, alt som gjenstår er å kjøre appen vår!
 
-- La oss lage en arbeidsmappe på Dockerimaget vårt. Legg inn en linje med `WORKDIR /usr/src/app` på andre linje i `Dockerfile`.
-- Vi kan bruke docker-kommandoen `COPY` for å overføre det vi vil over til imaget vårt. Legg til en linje med `COPY package*.json .`.
-- Lag en tilsvarende linje under for å overføre `server.js`.
-- Endre det etter `CMD` i kommandoen til `pwd && ls` så ser vi hva som ligger der nå.
+### Azure App Service
 
-## installere dependencies
+For å kjøre en Container så lett som mulig i Azure kan vi bruke en "Azure App Service".
 
-Det neste vi trenger å gjøre er å installere express i imaget.
+Opprett en App Service i portalen:
 
-- Endre `CMD` kommandoen til `CMD npm start` for å starte applikasjonen vår. Hvis du bygger og kjører vil du se at den feiler da express ikke er installert.
-  Vi legger også på `-it` i docker run kommandoen vår, så den blir `docker run -it dockerintro`. Dette kobler sammen shellet vårt med shellet i containeren.
-- For å installere express installerer vi dependenciene våre. Vi har tidligere introdusert `CMD`. Det er kommandoen imaget kjører når en container blir starta.
-  Vi har også andre verktøy i docker, bl.a `RUN` som er en kommando for å kjøre noe under bygging. Legg inn `RUN npm install` i Dockerfile for å få til dette.
-  Prøv selv å tenke hvor det er logisk at dette legges til. Blir du usikker så kan du sniktitte på `del_4`.
+- Gi den et unik navn, navnet blir del av URL-en til tjenesten din!
+- Huk vekk "Try a unique default hostname (preview)"
+- Velg at typen skal være "Container"
+- Operativsystem skal være "Linux"
+- Velg riktig Location, det viktigste er at det er samme som de andre ressursene dine.
+- Velg en pricing plan med omhu.
 
-### NB
+### Legg appen i prod!
 
-Her kan det være at containeren din ikke lar seg drepe med CTRL+C. I så fall gjør du følgende:
+Nå mangler vi bare å koble App Servicen vår med Container Registryet vårt, så er vi klare.
 
-- Åpne et nytt terminal-vindu.
-- Bruk `docker ps` til å finne containeren din. Kopier `CONTAINER ID`.
-- Kjør `docker stop <CONTAINER ID>`.
-- husk å legge til `-it` i docker run kommandoen din.
+Naviger til App Servicen i Azure Portalen, og finn Deployment Center.
 
-Da kjører applikasjonen vår! Men likevel fungerer det ikke å gå inn på http://0.0.0.0:9000. Hvorfor det?
+Prøv å koble til registryet ditt!
+
+Sjekk i "Log stream" om du kan se noe gjenkjennelig som tyder på at appen kjører.
+
+### En siste avsjekk
+
+Vi må nesten se appen i prod på sitt eget domene også?
+
+I "Overview" på App Servicen vil du finne en lenke til doment til appen din, virker den?
+
+Hvis den ikke gjør det, er det noe vi har måttet gjøre tidligere i workshoppen som vi har glemt denne gangen?
