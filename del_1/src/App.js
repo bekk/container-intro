@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+// Simple CSS spinner
+const spinnerStyle = {
+  display: "inline-block",
+  width: "40px",
+  height: "40px",
+  border: "4px solid #f3f3f3",
+  borderTop: "4px solid #3498db",
+  borderRadius: "50%",
+  animation: "spin 1s linear infinite",
+  margin: "1em auto",
+};
+
 function App() {
   const [randomNumber, setRandomNumber] = useState(null);
   const [healthStatus, setHealthStatus] = useState("Checking...");
+  const [visitMeResponse, setVisitMeResponse] = useState(null);
 
   const generateRandomNumber = () => {
     setRandomNumber(Math.floor(Math.random() * 1000));
@@ -13,6 +26,19 @@ function App() {
     setHealthStatus("Healthy! Running on React " + React.version);
   };
 
+  const fetchQuote = async () => {
+    setVisitMeResponse("Laster...");
+    try {
+      const res = await fetch(
+        "https://corsproxy.io/?https://quotes.alakhpc.com/quotes"
+      );
+      const data = await res.json();
+      setVisitMeResponse(data);
+    } catch (err) {
+      setVisitMeResponse({ error: "Feil ved henting av data" });
+    }
+  };
+
   useEffect(() => {
     checkHealth();
   }, []);
@@ -20,43 +46,53 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>🐳 Docker Workshop - Del 1</h1>
+        <h1>🐳 Docker workshop - sesjon 1</h1>
         <p>Velkommen til container-introduksjonen!</p>
 
         <div className="content">
           <div className="section">
-            <h2>Hjemmeside</h2>
-            <p>
-              Dette er en enkel React-applikasjon som kjører i en container.
-            </p>
+            <button onClick={fetchQuote}>Hent en random quote!</button>
+            {visitMeResponse === "Laster..." && (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={spinnerStyle} />
+              </div>
+            )}
+            {visitMeResponse &&
+            !visitMeResponse.error &&
+            visitMeResponse.text ? (
+              <div
+                style={{
+                  marginTop: "1em",
+                  padding: "1em",
+                  border: "1px solid #ccc",
+                  borderRadius: "8px",
+                  background: "#222",
+                }}
+              >
+                <p style={{ fontStyle: "italic", fontSize: "1.2em" }}>
+                  &ldquo;{visitMeResponse.text}&rdquo;
+                </p>
+                <p style={{ margin: 0 }}>
+                  <strong>{visitMeResponse.character}</strong>{" "}
+                  <span style={{ color: "#aaa" }}>
+                    ({visitMeResponse.show})
+                  </span>
+                </p>
+              </div>
+            ) : visitMeResponse && visitMeResponse.error ? (
+              <p>{visitMeResponse.error}</p>
+            ) : null}
           </div>
-
-          <div className="section">
-            <h2>Helsesjekk</h2>
-            <p>{healthStatus}</p>
-            <button onClick={checkHealth}>Sjekk helse på nytt</button>
-          </div>
-
-          <div className="section">
-            <h2>Tilfeldig tall</h2>
-            <p>
-              Nåværende tall:{" "}
-              {randomNumber !== null ? randomNumber : "Ingen generert"}
-            </p>
-            <button onClick={generateRandomNumber}>Generer nytt tall</button>
-          </div>
-        </div>
-
-        <div className="info">
-          <p>
-            Denne appen erstatter den tidligere Express-serveren med en
-            React-applikasjon.
-          </p>
-          <p>Perfekt for å lære om Docker containers!</p>
         </div>
       </header>
     </div>
   );
 }
+
+// Add keyframes for spinner animation
+const styleSheet = document.createElement("style");
+styleSheet.type = "text/css";
+styleSheet.innerText = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
+document.head.appendChild(styleSheet);
 
 export default App;
