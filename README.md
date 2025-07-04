@@ -1,3 +1,3 @@
 # container-intro
 
-Start i `del_1`.
+Start i `del_1` :)

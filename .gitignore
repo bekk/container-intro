@@ -1,4 +1,1 @@
-*node_modules/
-.idea/
-
-/del_2/Dockerfile
+node_modules/
