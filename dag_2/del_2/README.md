@@ -15,20 +15,12 @@ az appservice plan show \
 ```
 
 Du skal da få en lang string som output, bruk denne for å importere:
-
+Denne kommandoen kjører du i terminalen.
 ```
 terraform import azurerm_app_service_plan.service_plan_NAVN <lang_string>
 ```
 
 Gjør det samme med de andre ressursene:
-
-```
-az webapp show \
-  --name <web-app-name> \
-  --resource-group <resource-group-name> \
-  --query id \
-  --output tsv
-```
 
 Container registry:
 
@@ -44,6 +36,16 @@ az acr show \
 ```
 terraform import azurerm_container_registry.container_registry_NAVN <lang_string>
 ```
+
+
+```
+az webapp show \
+  --name <web-app-name> \
+  --resource-group <resource-group-name> \
+  --query id \
+  --output tsv
+```
+
 
 Og for web app har jeg gjort det litt annerledes så du må lete bittelitt. Prøv å finne ut hva slags ressurs du skal importere selv. Prøv å søk etter "terraform azure app service" og finn ut hva slags ressurs du skal importere.
 
