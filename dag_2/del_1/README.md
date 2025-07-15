@@ -20,6 +20,8 @@ Etter det kjører vi på med å bootstrappe. Dette er en ting man gjør en gang 
 ```terraform.tfvars``` med subscription_id og tenant_id må altså ligge i både ```/bootstrap``` og ```/infra```.
 
 
+FØR du init-er må du oppdatere verdiene som ligger i variables.tf til din egen ressursgruppe! Det gjør at du får mye lettere oversikt over dine egne ressurser.
+
 ```
 terraform init
 terraform apply -var-file="terraform.tfvars"
