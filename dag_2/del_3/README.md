@@ -65,8 +65,4 @@ resource "azurerm_function_app" "quotes_function" {
   }
 }
 
-
-
 ```
-
-```cd del_3/quotes_function```

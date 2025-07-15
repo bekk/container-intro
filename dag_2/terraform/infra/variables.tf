@@ -13,9 +13,9 @@ variable "tenant_id" {
 // Disse variablene har en default verdi, så de trenger ikke å settes i terraform.tfvars-filen
 // Ikke sentitive og kan brukes direkte i koden
 variable "resource_group_name" {
-  default = "faggruppe-sky-jog"
+  default = "din-resource-group"
 }
 
 variable "location" {
-  default = "northeurope"
+  default = "northeurope" # Endre denne hvis du ikke ønsker å bruke "northeurope"
 }

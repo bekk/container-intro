@@ -9,7 +9,7 @@ variable "tenant_id" {
 }
 
 variable "resource_group_name" {
-  default = "faggruppe-sky-jog"
+  default = "faggruppe-sky-NAVN"
 }
 variable "location" {
   default = "northeurope"
