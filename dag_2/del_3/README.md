@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "function_storage" {
 
 ### Del 3.2
 Nå begynner du å bli dreven jo! Så her kommer en ordentlig utfordring. Du skal selv deploye en azure function som et endepunkt som du kan bruke i din egen web-app. Dette *skal* være en vanskelig oppgave, det er siste og det er helt greit at du ikke blir ferdig med den.  <br/> <br/>
-Du kan legge merge til at det ligger en mappe her som heter azure-function. Det er en flask app som henter quotes fra et api. 
+Du kan legge merke til at det ligger en mappe her som heter azure-function. Det er en flask app som henter quotes fra et api. 
 
 Her er det meningen at du skal møte utfordring.
 ```
