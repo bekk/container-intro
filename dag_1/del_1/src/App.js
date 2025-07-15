@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import Weather from "./Weather";
 
-// Simple CSS spinner
 const spinnerStyle = {
   display: "inline-block",
   width: "40px",
@@ -13,7 +14,7 @@ const spinnerStyle = {
   margin: "1em auto",
 };
 
-function App() {
+function Home() {
   const [randomNumber, setRandomNumber] = useState(null);
   const [healthStatus, setHealthStatus] = useState("Checking...");
   const [visitMeResponse, setVisitMeResponse] = useState(null);
@@ -48,6 +49,7 @@ function App() {
       <header className="App-header">
         <h1>🐳 Docker workshop - sesjon 1</h1>
         <p>Velkommen til container-introduksjonen!</p>
+        <p>Status: {healthStatus}</p>
 
         <div className="content">
           <div className="section">
@@ -89,10 +91,31 @@ function App() {
   );
 }
 
-// Add keyframes for spinner animation
 const styleSheet = document.createElement("style");
 styleSheet.type = "text/css";
 styleSheet.innerText = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
 document.head.appendChild(styleSheet);
+
+function App() {
+  return (
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Hjem</Link>
+          </li>
+          <li>
+            <Link to="/vaer">Vær</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/vaer" element={<Weather />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
