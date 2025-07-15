@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-function Weather() {
+function Quotes() {
   const [temperature, setTemperature] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/weather") // this calls the Function App
+    fetch("/api/quotes") // this calls the Function App
       .then((res) => res.json())
       .then((data) => {
         if (data.temperature !== undefined) {
@@ -33,4 +33,4 @@ function Weather() {
   );
 }
 
-export default Weather;
+export default Quotes;

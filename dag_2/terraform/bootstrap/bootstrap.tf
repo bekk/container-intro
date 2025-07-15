@@ -7,7 +7,7 @@ provider "azurerm" {
 
 
 resource "azurerm_storage_account" "tfstate_sa" {
-  name                     = "jogstorageacct"
+  name                     = "DITT_NAVN_storageacct"
   resource_group_name      = var.resource_group_name
   location                 = var.location
   account_tier             = "Standard"

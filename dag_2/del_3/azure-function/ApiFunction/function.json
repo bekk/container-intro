@@ -6,8 +6,8 @@
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
-            "methods": ["get", "post"],
-            "route": "weather_function"
+            "methods": ["get"],
+            "route": "{endpoint}"
         },
         {
             "type": "http",

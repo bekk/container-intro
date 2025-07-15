@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
-import Weather from "./Weather";
+import Quotes from "./Quotes";
 
 const spinnerStyle = {
   display: "inline-block",
@@ -112,7 +112,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/vaer" element={<Weather />} />
+        <Route path="/vaer" element={<Quotes />} />
       </Routes>
     </Router>
   );

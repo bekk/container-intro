@@ -55,4 +55,3 @@ $(az webapp show --name <web-app-navn> --resource-group faggruppe-sky-<navn> --q
 
 Du skal da ha importert alt du trenger, så vi hopper videre til del 3! :D 
 Du trenger ikke bytte directory/mappe i terminalen, bli i ```terraform/infra```.
-

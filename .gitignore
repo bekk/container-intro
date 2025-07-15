@@ -4,3 +4,4 @@
 .DS_Store
 .terraform/
 .terraform.lock.hcl
+function.tf
