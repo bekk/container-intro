@@ -15,12 +15,10 @@ Du kan så finne subscription_id og tenant_id og legge de inn i ```terraform.tfv
 az account list --output table
 ```
 
-Etter det kjører vi på med å bootstrappe. Dette er en ting man gjlr en gang for å sette opp nødvendig backend for at terraform skal kunne kjøre av seg selv. Bytt til ```terraform/bootstrap```.
-```
-cd bootstrap
-terraform init
-terraform apply
-```
+Etter det kjører vi på med å bootstrappe. Dette er en ting man gjør en gang for å sette opp nødvendig backend for at terraform skal kunne kjøre av seg selv. Bytt til ```terraform/bootstrap```. 
+
+```terraform.tfvars``` med subscription_id og tenant_id må altså ligge i både ```/bootstrap``` og ```/infra```.
+
 
 ```
 terraform init
