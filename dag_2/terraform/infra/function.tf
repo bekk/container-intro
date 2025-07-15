@@ -6,7 +6,7 @@ resource "azurerm_storage_account" "function_storage" {
   account_replication_type = "LRS"
 }
 resource "azurerm_linux_function_app" "weather_function" {
-  name                       = "weather-function-app-jorgen"
+  name                       = "weather-function-app-jorgen3"
   location                   = var.location
   resource_group_name        = var.resource_group_name
   storage_account_name       = azurerm_storage_account.function_storage.name
@@ -15,18 +15,23 @@ resource "azurerm_linux_function_app" "weather_function" {
 
   site_config {
     application_stack {
-        docker {
-            registry_url      = azurerm_container_registry.container_registry_NAVN.login_server
-            image_name        = "weather-function"
-            image_tag         = "latest"
-            registry_username = azurerm_container_registry.container_registry_NAVN.admin_username
-            registry_password = azurerm_container_registry.container_registry_NAVN.admin_password
-        }
+      docker {
+        registry_url      = azurerm_container_registry.container_registry_NAVN.login_server
+        image_name        = "weather-function"
+        image_tag         = "latest"
+        registry_username = azurerm_container_registry.container_registry_NAVN.admin_username
+        registry_password = azurerm_container_registry.container_registry_NAVN.admin_password
+      }
     }
   }
 
   app_settings = {
-    "FUNCTIONS_WORKER_RUNTIME" = "python"
-    "WEBSITES_PORT"            = "3000"
+    "FUNCTIONS_WORKER_RUNTIME"             = "python"
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true"
   }
 }
+
+
+
+
+

@@ -56,13 +56,3 @@ $(az webapp show --name <web-app-navn> --resource-group faggruppe-sky-<navn> --q
 Du skal da ha importert alt du trenger, så vi hopper videre til del 3! :D 
 Du trenger ikke bytte directory/mappe i terminalen, bli i ```terraform/infra```.
 
-
-
-
-
-
-bugfix:
-
-
-terraform import azurerm_app_service_plan.service_plan_NAVN \
-"/subscriptions/456a104d-742c-45e5-bd46-22c5939d4396/resourceGroups/faggruppe-sky-jog/providers/Microsoft.Web/serverfarms/j%C3%B8ggaplan"
